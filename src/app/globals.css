@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+/* Add to your global CSS or tailwind.config.js */
+
+/* Prevent layout shifts on image loading */
+.bg-image-container {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.bg-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Prevent layout shifts */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* Smooth transitions without layout shifts */
+.motion-container {
+  contain: layout style paint;
+  will-change: opacity, transform;
+}
+
+/* Reserve space for dynamic content */
+.tiles-container {
+  min-height: 600px; /* Adjust based on your content */
+  contain: layout;
+}
+
+/* Prevent flash of unstyled content */
+.loading-placeholder {
+  background: linear-gradient(90deg, #1a1a1a 25%, #2a2a2a 50%, #1a1a1a 75%);
+  background-size: 200% 100%;
+  animation: loading-shimmer 1.5s infinite;
+}
+
+@keyframes loading-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Optimize animations */
+.motion-element {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Prevent content jumping */
+.prevent-shift {
+  contain: layout style paint;
+  overflow-anchor: none;
+}
