@@ -42,7 +42,13 @@ const Page = async () => {
 //       },
 //     },
 //   ]);
-
+    const formSubmissionsByPage = [
+        { _id: "home", count: 15 },
+        { _id: "contact-us", count: 8 },
+        { _id: "custom-trade-show-booth-ideas", count: 5 },
+        { _id: "portfolio", count: 12 },
+        { _id: "trade-show-booth-displays-designs", count: 7 },
+    ];
 
   const naklistats = [
     {
@@ -76,7 +82,7 @@ const Page = async () => {
   ];
 
   return (
-    <main className="flex-1 bg-gray-100 p-8">
+    <main className="flex-1 h-screen bg-gray-100 p-10 pl-[250px]">
       <Card className="bg-white p-6 rounded-lg shadow-md mb-6">
         <h1 className="text-3xl font-bold text-gray-800">
           Hello Admin, Welcome to the Dashboard 👋
@@ -121,7 +127,7 @@ const Page = async () => {
           </div>
         </Card>
       </div>
-      <Card className="bg-white p-6 mt-6">
+      {/* <Card className="bg-white p-6 mt-6">
         <h2 className="text-xl font-bold mb-4">Form Submissions by Page</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
           {formSubmissionsByPage.map((submission, index) => (
@@ -132,7 +138,7 @@ const Page = async () => {
             </div>
           ))}
         </div>
-      </Card>
+      </Card> */}
     </main>
   );
 };

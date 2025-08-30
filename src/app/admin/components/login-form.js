@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { login } from "@/server/actions/login";
 // import { revalidatePath } from "next/cache";
-// import { RevalidatePath } from "@/server/actions/revalidate-path";
+import { RevalidatePath } from "@/server/actions/revalidate-path";
 import Image from "next/image";
 import Link from "next/link";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
@@ -17,6 +17,7 @@ export default function LoginPage() {
     const email = formData.get("email");
     const password = formData.get("password");
     const resp = await login({ email, password });
+    console.log("RESP" , resp)
 
     if (resp) {
       toast.success("Login successful");

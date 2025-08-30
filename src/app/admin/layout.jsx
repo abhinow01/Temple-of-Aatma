@@ -49,7 +49,7 @@ const Layout = async ({ children }) => {
           <SidebarHeader className="p-6">
             <Link href={"/admin"}>
               <Image
-loading="eager"
+                loading="eager"
                 src={"/chronicle-logo-2.svg"}
                 alt="Chronicle Logo"
                 width={100}
@@ -62,7 +62,7 @@ loading="eager"
               {filteredCollections.map((collection, ind) => (
                 <Link
                   key={ind}
-                  className="text-primary tracking-wider text-[16px] font-semibold"
+                  className="text-[16px] font-semibold"
                   href={`/admin/${collection.slug}`}
                 >
                   <SidebarMenuItem>
@@ -80,7 +80,7 @@ loading="eager"
             <LogoutButton />
           </SidebarContent>
         </Sidebar>
-        {children}
+        <div className="flex-1 overflow-y-auto">{children}</div>
       </SidebarProvider>
     </div>
   );

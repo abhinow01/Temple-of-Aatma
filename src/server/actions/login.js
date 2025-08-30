@@ -13,7 +13,7 @@ const BASE_URL = process.env.BASE_URL || "http://localhost:10001"
 
 const users = [
   {
-    email: "admin@chronicleexhibits.com",
+    email: "admin@chronicles.com",
     password: "Chronicle@22"
   },
   {
@@ -26,13 +26,13 @@ export const login = async ({ email, password }) => {
 //   await dbConnect();
   // Mock authentication logic
   console.log("creds" , email , password)
-  const emailFromList = await users.find({email});
-  console.log("email from list " , emailFromList)
-  if (!users.email) {
+  const user =  users.find(user => user.email === email); // add await 
+  console.log("email from list " , user)
+  if (!user.email) {
     return false;
   }
 
-  if (users.password !== password) {
+  if (user.password !== password) {
     return false;
   }
   const token = jwtFuncs.signJWT({ email }); // Sign the JWT
