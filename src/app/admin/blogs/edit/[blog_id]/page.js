@@ -1,5 +1,6 @@
 import { findBlogById } from "@/server/actions/blogs";
 import React from "react";
+import EditBlog from "../_components/EditBlog";
 const Page = async ({params}) =>{
 console.log("params:", params); // E
   const { blog_id: blogId } = params;

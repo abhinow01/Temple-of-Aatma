@@ -10,6 +10,7 @@ import { deleteUTFiles } from "@/server/services/delete-ut";
 import CkEditor from "@/components/CKeditor";
 import { UploadButton } from "@/utils/uploadthing";
 import { UploadCloud } from "lucide-react";
+import { color } from "framer-motion";
 const AddBlogPage = () => {
   const router = useRouter();
   const [isUploading, setIsUploading] = useState(false);
@@ -79,7 +80,7 @@ const AddBlogPage = () => {
             <div>
               <label className="mb-2 block text-black font-medium">Title</label>
               <input
-                className="w-full border rounded px-3 py-2"
+                className="w-full border rounded px-3 py-2 text-black "
                 value={singleBlog.title}
                 onChange={(e) =>
                   setSingleBlog({ ...singleBlog, title: e.target.value })
@@ -92,7 +93,7 @@ const AddBlogPage = () => {
             <div>
               <label className="mb-2 block text-black font-medium">Slug</label>
               <input
-                className="w-full border rounded px-3 py-2"
+                className="w-full border rounded px-3 py-2 text-black"
                 value={singleBlog.slug}
                 onChange={(e) =>
                   setSingleBlog({ ...singleBlog, slug: e.target.value })
@@ -166,9 +167,9 @@ const AddBlogPage = () => {
 
             {/* Image Alt Text */}
             <div>
-              <label className="mb-2 block font-medium">Icon Alt Text</label>
+              <label className="mb-2 block font-medium text-black ">Icon Alt Text</label>
               <input
-                className="w-full border rounded px-3 py-2"
+                className="w-full border rounded px-3 py-2 text-black"
                 value={singleBlog.image_alt_text}
                 onChange={(e) =>
                   setSingleBlog({
@@ -182,10 +183,10 @@ const AddBlogPage = () => {
 
             {/* Blog Count */}
             <div>
-              <label className="mb-2 block font-medium">Blog Count</label>
+              <label className="mb-2 block font-medium text-black ">Blog Count</label>
               <input
                 type="number"
-                className="w-full border rounded px-3 py-2"
+                className="w-full border rounded px-3 py-2 text-black"
                 value={singleBlog.blog_count}
                 onChange={(e) =>
                   setSingleBlog({
@@ -201,9 +202,9 @@ const AddBlogPage = () => {
 
             {/* Blog Status */}
             <div>
-              <label className="mb-2 block font-medium">Blog Status</label>
+              <label className="mb-2 block font-medium text-black ">Blog Status</label>
               <select
-                className="w-full border rounded px-3 py-2"
+                className="w-full border rounded px-3 py-2 text-black "
                 value={singleBlog.isDraft}
                 onChange={(e) =>
                   setSingleBlog({ ...singleBlog, isDraft: e.target.value })
@@ -217,7 +218,7 @@ const AddBlogPage = () => {
 
             {/* Body */}
             <div className="col-span-2">
-              <label className="mb-2 block font-medium">Body</label>
+              <label className="mb-2 block font-medium text-black ">Body</label>
               <CkEditor
                 value={singleBlog.body}
                 onChange={(value) =>
@@ -232,15 +233,15 @@ const AddBlogPage = () => {
         <div className="bg-white rounded shadow p-6">
           <div className="flex items-center justify-center gap-4 mb-6">
             <hr className="flex-1 border-gray-300" />
-            <h2 className="text-2xl font-bold text-center">Add SEO Data</h2>
+            <h2 className="text-2xl font-bold text-center text-black ">Add SEO Data</h2>
             <hr className="flex-1 border-gray-300" />
           </div>
 
           <div className="grid grid-cols-1 gap-6">
             <div>
-              <label className="mb-2 block font-medium">Meta Title</label>
+              <label className="mb-2 block font-medium text-black">Meta Title</label>
               <input
-                className="w-full border rounded px-3 py-2"
+                className="w-full border rounded px-3 py-2 text-black"
                 value={singleBlog.meta_title}
                 onChange={(e) =>
                   setSingleBlog({ ...singleBlog, meta_title: e.target.value })
@@ -250,9 +251,9 @@ const AddBlogPage = () => {
             </div>
 
             <div>
-              <label className="mb-2 block font-medium">Meta Description</label>
+              <label className="mb-2 block font-medium text-black">Meta Description</label>
               <input
-                className="w-full border rounded px-3 py-2"
+                className="w-full border rounded px-3 py-2 text-black"
                 value={singleBlog.meta_description}
                 onChange={(e) =>
                   setSingleBlog({
@@ -265,12 +266,13 @@ const AddBlogPage = () => {
             </div>
 
             <div>
-              <label className="mb-2 block font-medium">Meta Keywords</label>
+              <label className="mb-2 block font-medium text-black ">Meta Keywords</label>
               <TagsInput
                 value={singleBlog.meta_keywords ?? []}
                 onChange={(e) =>
                   setSingleBlog({ ...singleBlog, meta_keywords: e })
                 }
+                style={{color : "black"}}
               />
             </div>
           </div>

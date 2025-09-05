@@ -28,6 +28,7 @@ try{
     return getActionSuccessResponse(data , count);
 
 }catch(error){
+    console.log("error in get all blogs" , error);
     return getActionFailureResponse( error , "toast");
 }
 }
@@ -49,7 +50,8 @@ export const updateData = async (id , data)=>{
         if(!id || !mongoose.Types.ObjectId.isValid(id)){
             return getActionFailureResponse("Invalid ID" , "toast");
         }
-        if(!data || typeof data !== object){
+        if(!data || typeof data !== "object"){
+            console.log("invalid data" , data);
             return getActionFailureResponse("Invalid data" , "toast"); 
         }
         if(String(data.isDraft) === "false"){
@@ -76,7 +78,7 @@ export const updateData = async (id , data)=>{
         },
         {
             new: true,
-            runInCleanSnapshot
+            runValidators: true,
         }
     ).lean();
     if(!resp){

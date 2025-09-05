@@ -35,6 +35,7 @@ export default function Blogs() {
         limit,
         "slug _id title image isDraft"
       );
+      console.log("resp in fetch data", resp);
 
       if (!resp.success) {
         toast.error(resp.error);
@@ -84,6 +85,7 @@ export default function Blogs() {
 
   useEffect(() => {
     fetchData(currentPage);
+    console.log("current Page data ", );
   }, [currentPage]);
 
   return (
@@ -150,7 +152,7 @@ export default function Blogs() {
                     />
                   </td>
                   <td className="border p-2">{blog.title}</td>
-                  <td className="border p-2">{blog.short_description}</td>
+                  <td className="border p-2">{blog.meta_description}</td>
                   <td className="border p-2">
                     <span
                       className={`px-3 py-1 rounded text-white text-sm ${
