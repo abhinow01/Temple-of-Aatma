@@ -41,6 +41,38 @@ const BlogsPagination = ({ blogs, currentPage, totalPages, onPageChange }) => {
 
 return (
 <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-amber-50">
+<div className="fixed inset-0 flex items-center justify-center z-0 pointer-events-none animate-ripple">
+  <svg className="w-[1200px] h-[1200px] opacity-10 text-amber-600" 
+       viewBox="0 0 1000 1000" 
+       preserveAspectRatio="xMidYMid meet">
+    
+    {/* Concentric circles */}
+    <circle cx="500" cy="500" r="480" fill="none" stroke="currentColor" strokeWidth="0.5" />
+    <circle cx="500" cy="500" r="400" fill="none" stroke="currentColor" strokeWidth="0.7" />
+    <circle cx="500" cy="500" r="320" fill="none" stroke="currentColor" strokeWidth="0.7" />
+    <circle cx="500" cy="500" r="240" fill="none" stroke="currentColor" strokeWidth="0.7" />
+    <circle cx="500" cy="500" r="160" fill="none" stroke="currentColor" strokeWidth="1" />
+    <circle cx="500" cy="500" r="80" fill="none" stroke="currentColor" strokeWidth="1" />
+
+    {/* Radiating spokes */}
+    {Array.from({ length: 24 }).map((_, i) => {
+      const angle = (i * Math.PI * 2) / 24;
+      const x = 500 + 480 * Math.cos(angle);
+      const y = 500 + 480 * Math.sin(angle);
+      return <line key={i} x1="500" y1="500" x2={x} y2={y} stroke="currentColor" strokeWidth="0.5" />;
+    })}
+
+    {/* Decorative dots */}
+    {Array.from({ length: 48 }).map((_, i) => {
+      const angle = (i * Math.PI * 2) / 48;
+      const x = 500 + 320 * Math.cos(angle);
+      const y = 500 + 320 * Math.sin(angle);
+      return <circle key={i} cx={x} cy={y} r="6" fill="currentColor" />;
+    })}
+  </svg>
+</div>
+
+
       {/* Header Section */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 opacity-5">
@@ -71,7 +103,7 @@ return (
             {blogs?.map((blog, index) => (
               <article
                 key={index}
-                className="group bg-white/80 backdrop-blur-sm rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-slate-100"
+                className="group bg-white  rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-slate-100"
               >
                 <div className="flex flex-col md:flex-row">
                   <div className="md:w-2/5 relative overflow-hidden">
@@ -107,7 +139,7 @@ return (
           {/* Right side: Recommended blogs */}
           <div className="lg:col-span-1">
             <div className="sticky top-8">
-              <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-8 border border-slate-100">
+              <div className="bg-white  rounded-2xl p-8 border border-slate-100">
                 <div className="flex items-center mb-8">
                   <Star className="w-5 h-5 text-amber-500 mr-3" />
                   <h3 className="text-xl font-bold text-slate-800">
