@@ -5,7 +5,7 @@ import { useMemo } from 'react';
 
 // Create the dynamic component outside of the main component
 const DynamicCKEditor = dynamic(
-  () => import('./_components/CkEditorComponent'),
+  () => import('./_components/CKEditorComponent'),
   { 
     ssr: false,
     loading: () => (
