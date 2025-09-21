@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { addData } from "@/server/actions/blogs";
 import { deleteUTFiles } from "@/server/services/delete-ut";
-import CkEditor from "@/components/CKeditor";
+import CkEditor from "@/components/CkEditor";
 import { UploadButton } from "@/utils/uploadthing";
 import { UploadCloud } from "lucide-react";
 import { color } from "framer-motion";
@@ -224,6 +224,7 @@ const AddBlogPage = () => {
                 onChange={(value) =>
                   setSingleBlog({ ...singleBlog, body: value })
                 }
+                style={{color:"black"}}
               />
             </div>
           </div>

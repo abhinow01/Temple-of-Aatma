@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { updateData } from "@/server/actions/blogs";
 import { deleteUTFiles } from "@/server/services/delete-ut";
-import CkEditor from "@/components/CKeditor";
+import CkEditor from "@/components/CkEditor";
 import { UploadButton } from "@/utils/uploadthing";
 
 const EditBlog = ({ singleBlog }) => {

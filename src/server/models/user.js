@@ -9,4 +9,4 @@ const UserSchema = new mongoose.Schema({
   isHidden: { type: Boolean, default:false }
 });
 
-const User = mongoose.models.User || mongoose.model("User", UserSchema);
+export default User = mongoose.models.User || mongoose.model("User", UserSchema);
