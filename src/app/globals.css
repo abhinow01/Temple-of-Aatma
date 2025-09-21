@@ -159,3 +159,54 @@ body {
   contain: layout style paint;
   overflow-anchor: none;
 } */
+
+/* CKEditor Custom Styles */
+
+/* Fix gray text issue - make text black/dark */
+.ck-editor__editable {
+  color: #000000 !important;
+  min-height: 200px;
+}
+
+/* Dark mode support */
+.dark .ck-editor__editable {
+  color: #ffffff !important;
+  background-color: #1f2937 !important;
+}
+
+/* Remove placeholder styling that might cause gray text */
+.ck-editor__editable .ck-placeholder::before {
+  color: #9ca3af !important;
+  opacity: 0.6;
+}
+
+/* Ensure typed text is not gray */
+.ck-editor__editable p,
+.ck-editor__editable div,
+.ck-editor__editable span,
+.ck-editor__editable h1,
+.ck-editor__editable h2,
+.ck-editor__editable h3,
+.ck-editor__editable h4,
+.ck-editor__editable h5,
+.ck-editor__editable h6 {
+  color: inherit !important;
+}
+
+/* Fix for specific text nodes */
+.ck-editor__editable * {
+  color: inherit !important;
+}
+
+/* Toolbar styling */
+.ck-toolbar {
+  border: 1px solid #d1d5db;
+  border-radius: 6px 6px 0 0;
+}
+
+/* Editor content area */
+.ck-editor__main {
+  border: 1px solid #d1d5db;
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}

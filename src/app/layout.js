@@ -2,7 +2,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
 import "@uploadthing/react/styles.css";
-
+// import '@ckeditor/ckeditor5-build-classic/build/ckeditor.css';
+// or add it to your global CSS file
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",

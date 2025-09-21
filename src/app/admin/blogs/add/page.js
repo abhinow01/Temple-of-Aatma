@@ -224,6 +224,7 @@ const AddBlogPage = () => {
                 onChange={(value) =>
                   setSingleBlog({ ...singleBlog, body: value })
                 }
+                style={{color:"black"}}
               />
             </div>
           </div>
