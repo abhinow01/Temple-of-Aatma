@@ -117,19 +117,20 @@ return (
                     </div>
                   </div>
                   
-                  <div className="md:w-3/5 p-8 flex flex-col justify-center">
+                  <div className="w-[100%] p-8 flex flex-col justify-center">
                     <h2 className="text-2xl md:text-3xl font-bold text-slate-800 mb-4 line-clamp-2 group-hover:text-amber-700 transition-colors duration-300">
                       {blog.title}
                     </h2>
                     
-                    <div className="text-slate-600 text-base leading-relaxed mb-6 line-clamp-3">
+                    <div className="text-slate-600 w-[100%] text-base leading-relaxed mb-6 line-clamp-3">
                       <BlogDesc body={blog.body} maxLength={180} />
                     </div>
-                    
-                    <button className="inline-flex items-center text-amber-600 hover:text-amber-700 font-semibold transition-colors duration-300 group/btn">
+                    <Link href={`/${blog.slug}/`} prefetch={true}>
+                      <button className="inline-flex items-center text-amber-600 hover:text-amber-700 font-semibold transition-colors duration-300 group/btn">
                       <span className="mr-2">Read More</span>
                       <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
                     </button>
+                    </Link>
                   </div>
                 </div>
               </article>

@@ -22,6 +22,7 @@ const BlogDesc = ({ body }) => {
 
   return (
     <>
+    {textWith30Words}
     </>
   )
 };
