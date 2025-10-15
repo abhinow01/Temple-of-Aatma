@@ -80,7 +80,7 @@ export default function Triquetra() {
           SACRED
         </h1>
         <p className="text-[10px] md:text-sm font-light tracking-[0.4em] text-[#a99a8d]">
-          JOURNEY
+          JOURNEY WITH OUR RETREATS 
         </p>
       </motion.div>
 
