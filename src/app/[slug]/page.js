@@ -129,7 +129,7 @@ const Page = async ({ params }) => {
               <div
                 id="blog_content"
                 dangerouslySetInnerHTML={{ __html: data?.body || "" }}
-                className="prose prose-lg max-w-none"
+                className="prose prose-lg max-w-none bg-recycled-paper"
                 style={{
                   fontSize: 'clamp(15px, 2vw, 17px)',
                   lineHeight: '1.9',
@@ -137,6 +137,7 @@ const Page = async ({ params }) => {
                   fontFamily: 'Georgia, "Times New Roman", serif',
                   paddingLeft: 'clamp(24px, 6vw, 48px)',
                 }}
+
               />
 
               {/* Paper Tear Effect at Bottom */}

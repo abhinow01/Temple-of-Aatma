@@ -87,10 +87,10 @@ return (
             <BookOpen className="w-8 h-8 text-amber-700" />
           </div>
           <h1 className="text-4xl md:text-6xl font-bold text-slate-800 mb-4 tracking-tight">
-            Scriptures of <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-amber-500">Aatma</span>
+            Soul <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-amber-500">Writings</span>
           </h1>
           <p className="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
-            Ancient wisdom for the modern soul
+            Ancient wisdom for humbling your soul
           </p>
         </div>
       </div>

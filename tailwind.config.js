@@ -67,12 +67,20 @@ module.exports = withUt({
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        'paper-cream': '#F3EDE1',
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      backgroundImage : theme =>({
+        'recycled-paper' : [
+          "linear-gradient(180deg, rgba(255,255,255,0.08), rgba(0,0,0,0.02))",
+          "repeating-linear-gradient(90deg, rgba(0,0,0,0.02) 0px, rgba(0,0,0,0.02) 1px, transparent 1px, transparent 40px)",
+          "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'><filter id='n'><feTurbulence baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/><feComponentTransfer><feFuncA type='table' tableValues='0 0.12'/></feComponentTransfer></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.55' /></svg>\")"
+        ].join(', ')
+      })
     },
   },
   plugins: [require("tailwindcss-animate")],

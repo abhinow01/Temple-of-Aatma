@@ -15,10 +15,10 @@ import {
 
 const tiles = [
   {
-    title: "About",
+    title: "Scriptures of Aatma",
     description: "Discover our sacred journey",
     icon: BookOpen,
-    path: "/about",
+    path: "/scriptures-of-aatma",
     color: "from-amber-400 to-orange-500",
   },
   {
@@ -60,7 +60,7 @@ const tiles = [
     title: "Rituals",
     description: "Sacred ceremonies",
     icon: Star,
-    path: "/rituals",
+    path: "/sacred-retreats",
     color: "from-violet-400 to-purple-500",
   },
   {
