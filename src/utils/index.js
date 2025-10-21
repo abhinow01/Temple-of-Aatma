@@ -1,4 +1,24 @@
 import * as jwtFuncs from "./jwt";
+export const validateYatraData = (data)=>{
+  const requiredFields = [
+    { key: "title", message: "Title is required" },
+    { key: "slug", message: "Slug is required" },
+    { key: "summary", message: "Summary is required" },
+    { key: "description", message: "Description is required" },
+    { key: "startDate", message: "Start date is required" },
+    { key: "endDate", message: "End date is required" },
+    { key: "price", message: "Price is required" },
+    { key: "images", message: "At least one image is required", isArray: true },
+    { key: "locationTitle", message: "Location title is required" },
+  ]
+  for(const field of requiredFields){
+    const value = data[field.key]
+    const isMissing = !value || (field.isArray && Array.isArray(value) && value.length === 0)
+    if(isMissing) {
+      return getActionFailureResponse(field.message , field.key)
+    }
+  }
+}
 const validateBlogAddData = (data) =>{
     const requiredFields = [
     {key : 'title' , message : "Title is required"},
