@@ -1,258 +1,238 @@
 import { getSingleBlog, getAllBlogs } from "@/server/actions/blogs";
+import { getSingleYatra, getAllYatras } from "@/server/actions/yatras";
 import Image from "next/image";
 import Link from "next/link";
 
 const Page = async ({ params }) => {
   const { slug } = params;
 
-  // Fetch single blog
-  const { data } = await getSingleBlog({ slug, isDraft: "false" });
+  // 1️⃣ Try fetching blog
+  const blogResponse = await getSingleBlog({ slug, isDraft: "false" });
+  const blogData = blogResponse?.data;
 
-  let blogsToBeMapped = [];
-
-  if (data) {
-    const blogFromDb = await getAllBlogs(
+  if (blogData) {
+    // Fetch related blogs
+    const relatedBlogsRes = await getAllBlogs(
       { isDraft: false },
       null,
-      data.blog_count,
+      blogData.blog_count,
       "name title slug image_alt_text"
     );
-    blogsToBeMapped = blogFromDb?.datas || [];
-  }
+    const relatedBlogs = relatedBlogsRes?.datas || [];
 
-  return (
-    <>
-      {/* Hero Section - Leather Book Cover Style */}
-      <div 
-        className="text-gray-800 h-[280px] md:h-[360px] flex justify-center items-center px-4"
-        style={{
-          background: 'linear-gradient(135deg, #5C4A3A 0%, #3E2F24 100%)',
-        }}
-      >
-        <h1 
-          className="text-center uppercase font-bold max-w-4xl px-4"
-          style={{
-            fontSize: 'clamp(24px, 5vw, 38px)',
-            color: '#F5EBE0',
-            textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
-            letterSpacing: '2px',
-            fontFamily: 'Georgia, serif',
-          }}
-        >
-          {data?.title}
-        </h1>
-      </div>
-
-      {/* Main Background with Recycled Paper Texture */}
-      <div 
-        className="min-h-screen"
-        style={{
-          background: '#EDE4D3',
-          position: 'relative',
-        }}
-      >
-        {/* Paper Texture Overlay */}
-        <div 
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundImage: `
-              repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(139, 115, 85, 0.04) 2px, rgba(139, 115, 85, 0.04) 4px),
-              repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(139, 115, 85, 0.04) 2px, rgba(139, 115, 85, 0.04) 4px),
-              radial-gradient(circle at 20% 30%, rgba(139, 115, 85, 0.02) 0%, transparent 50%),
-              radial-gradient(circle at 80% 70%, rgba(139, 115, 85, 0.02) 0%, transparent 50%)
-            `,
-            pointerEvents: 'none',
-            opacity: 0.8,
-          }}
-        />
-
-        {/* Main Content Section */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-10 py-8 lg:py-16 relative z-10">
-          {/* Left Section - Main Blog Content */}
-          <div className="lg:col-span-2 space-y-6 lg:space-y-8">
-            {/* Hero Image with Vintage Frame */}
-            {data?.image && (
-              <div 
-                style={{
-                  padding: '10px',
-                  background: '#8B7355',
-                  boxShadow: '0 8px 24px rgba(0,0,0,0.25), inset 0 2px 4px rgba(255,255,255,0.1)',
-                  borderRadius: '4px',
-                }}
-              >
-                <Image
-                  loading="eager"
-                  src={data.image}
-                  alt={data.image_alt_text || data.title || "Blog image"}
-                  width={800}
-                  height={600}
-                  className="w-full rounded-sm"
-                  style={{
-                    maxHeight: '500px',
-                    objectFit: 'cover',
-                    border: '3px solid #F5EBE0',
-                    display: 'block',
-                  }}
-                />
-              </div>
-            )}
-
-            {/* Blog Content - Recycled Paper Diary Style */}
-            <div
-              className="relative"
-              style={{
-                background: '#FAF6F0',
-                boxShadow: '0 6px 20px rgba(62, 47, 36, 0.2), inset 0 1px 3px rgba(255,255,255,0.5)',
-                padding: 'clamp(20px, 5vw, 48px)',
-                borderRadius: '6px',
-                border: '2px solid #C4B5A0',
-              }}
-            >
-              {/* Diary Margin Line */}
-              <div
-                style={{
-                  position: 'absolute',
-                  left: 'clamp(32px, 8vw, 64px)',
-                  top: '16px',
-                  bottom: '16px',
-                  width: '2px',
-                  background: '#D4A574',
-                  opacity: 0.4,
-                }}
-              />
-              
-              {/* Content */}
-              <div
-                id="blog_content"
-                dangerouslySetInnerHTML={{ __html: data?.body || "" }}
-                className="prose prose-lg max-w-none bg-recycled-paper"
-                style={{
-                  fontSize: 'clamp(15px, 2vw, 17px)',
-                  lineHeight: '1.9',
-                  color: '#2C2419',
-                  fontFamily: 'Georgia, "Times New Roman", serif',
-                  paddingLeft: 'clamp(24px, 6vw, 48px)',
-                }}
-
-              />
-
-              {/* Paper Tear Effect at Bottom */}
-              <div
-                style={{
-                  position: 'absolute',
-                  bottom: '-4px',
-                  left: 0,
-                  right: 0,
-                  height: '4px',
-                  background: `repeating-linear-gradient(90deg, transparent, transparent 8px, #C4B5A0 8px, #C4B5A0 16px)`,
-                  opacity: 0.5,
-                }}
-              />
-            </div>
+    return (
+      <>
+        {/* --- BLOG PAGE JSX --- */}
+        <div className="text-gray-800 min-h-screen bg-[#EDE4D3]">
+          <div className="h-[280px] flex justify-center items-center bg-gradient-to-br from-[#5C4A3A] to-[#3E2F24]">
+            <h1 className="text-4xl font-bold text-[#F5EBE0] uppercase tracking-wide">
+              {blogData.title}
+            </h1>
           </div>
 
-          {/* Right Section - Related Blogs */}
-          <div className="w-full">
-            <div className="flex flex-col items-center py-6 lg:py-12">
-              <h3 
-                className="font-semibold text-center mb-6 lg:mb-8 pb-3 w-full"
-                style={{
-                  fontSize: 'clamp(24px, 4vw, 32px)',
-                  color: '#3E2F24',
-                  fontFamily: 'Georgia, serif',
-                  borderBottom: '3px solid #8B7355',
-                  textTransform: 'uppercase',
-                  letterSpacing: '1px',
-                }}
-              >
+          <div className="max-w-7xl mx-auto p-6 grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Left: Blog */}
+            <div className="lg:col-span-2">
+              {blogData.image && (
+                <Image
+                  src={blogData.image}
+                  alt={blogData.image_alt_text || blogData.title}
+                  width={800}
+                  height={500}
+                  className="rounded-md border-4 border-[#F5EBE0]"
+                />
+              )}
+
+              <div
+                dangerouslySetInnerHTML={{ __html: blogData.body || "" }}
+                className="prose max-w-none mt-8 text-[#2C2419]"
+              />
+            </div>
+
+            {/* Right: Related Blogs */}
+            <div>
+              <h3 className="text-2xl font-semibold mb-4 text-center">
                 Related Blogs
               </h3>
-              
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6 w-full">
-                {blogsToBeMapped.map((blog, index) => (
-                  <div
-                    key={index}
-                    className="relative h-full w-full flex flex-col overflow-hidden transition-all duration-300 hover:-translate-y-1"
-                    style={{
-                      background: '#FAF6F0',
-                      border: '2px solid #C4B5A0',
-                      borderRadius: '6px',
-                      boxShadow: '0 6px 16px rgba(62, 47, 36, 0.15)',
-                    }}
+              <div className="space-y-6">
+                {relatedBlogs.map((b, i) => (
+                  <Link
+                    key={i}
+                    href={`/${b.slug}`}
+                    className="block border border-[#C4B5A0] rounded-md overflow-hidden shadow-md hover:shadow-lg transition"
                   >
-                    {/* Image Section with Vintage Frame */}
-                    <div 
-                      className="w-full"
-                      style={{
-                        borderBottom: '2px solid #8B7355',
-                        padding: '8px',
-                        background: '#D4C4A8',
-                      }}
-                    >
-                      <Image
-                        loading="eager"
-                        src={blog.image}
-                        alt={blog.image_alt_text || blog.title}
-                        width={400}
-                        height={200}
-                        className="w-full object-cover"
-                        style={{
-                          borderRadius: '3px',
-                          height: '180px',
-                          border: '2px solid #F5EBE0',
-                        }}
-                      />
-                    </div>
-
-                    {/* Title & Link */}
-                    <div 
-                      className="p-4 lg:p-6 flex flex-col flex-grow justify-between"
-                      style={{
-                        background: '#FAF6F0',
-                      }}
-                    >
-                      <h4 
-                        className="font-medium text-center mb-4"
-                        style={{
-                          fontSize: 'clamp(18px, 3vw, 22px)',
-                          color: '#2C2419',
-                          fontFamily: 'Georgia, serif',
-                          lineHeight: '1.5',
-                        }}
-                      >
-                        {blog.title}
-                      </h4>
-                      
-                      <Link
-                        className="self-center inline-block font-bold rounded transition-all duration-300 hover:scale-105"
-                        href={`/${blog.slug}`}
-                        style={{
-                          background: '#5C4A3A',
-                          border: '2px solid #3E2F24',
-                          color: '#F5EBE0',
-                          fontFamily: 'Georgia, serif',
-                          padding: '10px 24px',
-                          fontSize: 'clamp(14px, 2vw, 16px)',
-                          textDecoration: 'none',
-                          boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
-                          letterSpacing: '0.5px',
-                        }}
-                      >
-                        Read More
-                      </Link>
-                    </div>
-                  </div>
+                    <Image
+                      src={b.image}
+                      alt={b.title}
+                      width={400}
+                      height={200}
+                      className="w-full h-40 object-cover"
+                    />
+                    <div className="p-4 text-center font-medium">{b.title}</div>
+                  </Link>
                 ))}
               </div>
             </div>
           </div>
         </div>
+      </>
+    );
+  }
+
+  // 2️⃣ If no blog found, try Yatra
+  const yatraResponse = await getSingleYatra({ slug});
+  const yatraData = yatraResponse?.data;
+  console.log("yatra data ",yatraResponse)
+  if (yatraData) {
+    const relatedYatrasRes = await getAllYatras({ isDraft: false });
+    const relatedYatras = relatedYatrasRes?.datas || [];
+
+    return (
+      <>
+        {/* --- YATRA PAGE JSX --- */}
+<div className="min-h-screen bg-gradient-to-b from-gray-50 via-white to-gray-100 text-gray-800">
+  {/* Header Section */}
+  <div className="relative bg-gradient-to-r from-amber-700 via-orange-600 to-yellow-500 text-white py-20 shadow-xl">
+    <div className="absolute inset-0 bg-black/20"></div>
+    <div className="relative text-center z-10 max-w-4xl mx-auto px-4">
+      <h1 className="text-5xl font-bold tracking-tight drop-shadow-md">
+        {yatraData.title}
+      </h1>
+      <p className="mt-4 text-lg text-amber-100">
+        {yatraData.locationTitle} • {new Date(yatraData.startDate).toLocaleDateString()} -{" "}
+        {new Date(yatraData.endDate).toLocaleDateString()}
+      </p>
+    </div>
+  </div>
+
+  {/* Content Section */}
+  <div className="max-w-7xl mx-auto px-6 lg:px-10 py-16 grid grid-cols-1 lg:grid-cols-3 gap-12">
+    {/* Left: Yatra Details */}
+    <div className="lg:col-span-2 space-y-10">
+      {/* Hero Image */}
+      {yatraData.images?.[0] && (
+        <div className="overflow-hidden rounded-2xl shadow-lg transition-transform hover:scale-[1.02] duration-500">
+          <Image
+            src={yatraData.images[0]}
+            alt={yatraData.title}
+            width={800}
+            height={500}
+            className="w-full h-[450px] object-cover"
+          />
+        </div>
+      )}
+
+      {/* Summary */}
+      <p className="text-lg leading-relaxed text-gray-700 border-l-4 border-amber-500 pl-4 italic">
+        {yatraData.summary}
+      </p>
+
+
+
+      {/* Description */}
+      <div
+        dangerouslySetInnerHTML={{
+          __html: yatraData.description || "",
+        }}
+        className="prose prose-lg max-w-none text-gray-700 prose-headings:text-amber-700 prose-a:text-amber-600 hover:prose-a:text-amber-700"
+      />
+    </div>
+
+{/* Right: Related Yatras */}
+<div className="bg-white rounded-2xl shadow-lg p-6">
+  {/* Yatra Info */}
+  <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl border border-amber-200 p-6 mb-6">
+    <div className="space-y-4">
+      {/* Location */}
+      <div className="flex items-start gap-3 pb-4 border-b border-amber-200">
+        <div className="flex-shrink-0 w-10 h-10 bg-white rounded-lg shadow-sm flex items-center justify-center">
+          <svg className="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="text-xs uppercase tracking-wide text-gray-500 mb-1">Location</p>
+          <p className="font-semibold text-gray-900">{yatraData.locationTitle}</p>
+        </div>
       </div>
-    </>
+
+      {/* Dates */}
+      <div className="flex items-start gap-3 pb-4 border-b border-amber-200">
+        <div className="flex-shrink-0 w-10 h-10 bg-white rounded-lg shadow-sm flex items-center justify-center">
+          <svg className="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="text-xs uppercase tracking-wide text-gray-500 mb-1">Duration</p>
+          <div className="flex items-center gap-2 flex-wrap">
+            <p className="font-semibold text-gray-900 text-sm">
+              {new Date(yatraData.startDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
+            </p>
+            <span className="text-gray-400">→</span>
+            <p className="font-semibold text-gray-900 text-sm">
+              {new Date(yatraData.endDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Price */}
+      <div className="flex items-center justify-between pt-2">
+        <div>
+          <p className="text-xs uppercase tracking-wide text-gray-500 mb-1">Price per person</p>
+          <p className="text-3xl font-bold text-green-600">₹{yatraData.price.toLocaleString('en-IN')}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {/* Book Now Button */}
+  <button className="w-full bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white font-semibold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] mb-8">
+    Book Now
+  </button>
+
+  {/* Related Yatras */}
+  <h3 className="text-2xl font-semibold mb-6 text-center text-amber-700 border-b pb-2">
+    Related Yatras
+  </h3>
+  <div className="space-y-6">
+    {relatedYatras.map((y, i) => (
+      <Link
+        key={i}
+        href={`/sacred-retreats/yatras/${y.slug}`}
+        className="block overflow-hidden rounded-xl border border-gray-200 shadow hover:shadow-lg hover:border-amber-400 transition-all duration-300"
+      >
+        <Image
+          src={y.images?.[0]}
+          alt={y.title}
+          width={400}
+          height={200}
+          className="w-full h-40 object-cover transition-transform duration-500 hover:scale-105"
+        />
+        <div className="p-4 text-center font-medium text-gray-800">
+          {y.title}
+        </div>
+      </Link>
+    ))}
+  </div>
+
+</div>
+
+
+</div>
+
+  </div>
+      </>
+    );
+  }
+
+  // 3️⃣ If neither found
+  return (
+    <div className="h-[80vh] flex items-center justify-center text-gray-700">
+      <p>No matching Blog or Yatra found for &quot;{slug}&quot;.</p>
+    </div>
   );
 };
 

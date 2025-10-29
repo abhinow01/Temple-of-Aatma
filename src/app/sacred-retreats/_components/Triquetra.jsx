@@ -16,7 +16,7 @@ export default function Triquetra() {
     {
       id: 1,
       label: "Retreats",
-      href: "/retreats",
+      href: "/sacred-retreats/yatras",
       color: "#e8d4d8",
       description: "Sacred spaces for transformation",
     },
