@@ -79,9 +79,6 @@ const paymentIntent = await stripe.paymentIntents.create({
   metadata: { bookingId: booking._id.toString(), yatraId: yatra._id.toString() },
 });
 
-// booking.paymentIntentId = paymentIntent.id;
-// await booking.save();
-
 // return NextResponse.json({
 //   clientSecret: paymentIntent.client_secret,
 //   bookingId: booking._id,
