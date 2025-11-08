@@ -189,10 +189,12 @@ const Page = async ({ params }) => {
   </div>
 
   {/* Book Now Button */}
-  <button className="w-full bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white font-semibold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] mb-8">
-    Book Now
-  </button>
-
+<Link
+  href={`sacred-retreats/yatras/${yatraData._id}/book`}
+  className="w-full block text-center bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white font-semibold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] mb-8"
+>
+  Book Now
+</Link>
   {/* Related Yatras */}
   <h3 className="text-2xl font-semibold mb-6 text-center text-amber-700 border-b pb-2">
     Related Yatras
