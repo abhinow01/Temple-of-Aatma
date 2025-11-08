@@ -2,9 +2,8 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import dbConnect from "@/config/db-connect";
-import Booking from "@/models/Booking";
-import Yatra from "@/models/Yatra";
-
+import Booking from "@/server/models/booking";
+import Yatra from "@/server/models/yatra";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export async function POST(req) {
