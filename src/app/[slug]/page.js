@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { getSingleBlog, getAllBlogs } from "@/server/actions/blogs";
 import { getSingleYatra, getAllYatras } from "@/server/actions/yatras";
 import Image from "next/image";
@@ -80,7 +81,7 @@ const Page = async ({ params }) => {
   }
 
   // 2️⃣ If no blog found, try Yatra
-  const yatraResponse = await getSingleYatra({ slug});
+  const yatraResponse = await getSingleYatra({slug});
   const yatraData = yatraResponse?.data;
   console.log("yatra data ",yatraResponse)
   if (yatraData) {
