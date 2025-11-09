@@ -5,10 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 
 const Page = async ({ params }) => {
-  const { slug } = params;
-
+  const { slug } = await params;
+  console.log("slug",slug)
   // 1️⃣ Try fetching blog
-  const blogResponse = await getSingleBlog({ slug, isDraft: "false" });
+  const blogResponse = await getSingleBlog({ slug:slug , isDraft: "false" });
   const blogData = blogResponse?.data;
 
   if (blogData) {
@@ -81,7 +81,7 @@ const Page = async ({ params }) => {
   }
 
   // 2️⃣ If no blog found, try Yatra
-  const yatraResponse = await getSingleYatra({slug});
+  const yatraResponse = await getSingleYatra({slug:slug});
   const yatraData = yatraResponse?.data;
   console.log("yatra data ",yatraResponse)
   if (yatraData) {

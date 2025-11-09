@@ -138,7 +138,10 @@ export const deleteData = async (id) => {
 
 export const getSingleYatra = async (query) => {
   try {
+    await dbConnect();
+    console.log('db connected')
     const resp = await Yatra.findOne(query);
+    console.log('resp' , resp)
     return getActionSuccessResponse(resp);
   } catch (error) {
     console.error("Error deleting data:", error);
